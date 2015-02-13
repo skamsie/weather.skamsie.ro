@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Weather information">
+  <meta name="author" content="www.skamsie.ro">
+
+  <title>Weather</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="css/style.css" rel="stylesheet">
+  
+  
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato:400">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+</head>
+
+<!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand page-scroll" href="#page-top">weather.skamsie.ro</a>
+      </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav">
+          <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+          <li class="hidden">
+            <a class="page-scroll" href="#page-top"></a>
+          </li>
+          <li>
+            <a class="page-scroll nav-text" href="#about">About</a>
+          </li>
+        </ul>
+      </div> <!-- /.navbar-collapse -->
+    </div> <!-- /.container -->
+  </nav>
+
+  <!-- Intro Section -->
+  <section id="intro" class="select-location">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h1>Weather for:</h1>
+          
+          <div class=empty-div-big></div>
+          <button id=info-button class=info-pushed-button>i</button>
+          
+          <div id=input-area>
+            <input id=input-location name=location type="text" placeholder="City, ZIP, Region"/>
+            <button id=units-button class=units-pushed-button type="button" value='c'>&deg;C</button>
+            <button id="js-geolocation" type="button"><img src="images/location-icon.png"></button>
+            <button id=submit-location type="button">submit</button>
+          </div>
+          <div class=empty-div></div>
+          <div id="info-details">
+            <p>INFO</p>
+            <p>INPUT: Type in the input box the location for which you want to get weather information. For big cities
+              providing only the city name usually suffices, but for less known locations it is better to provide also the zip code,
+              country name, or country code.
+            </p>
+            <p>UNITS: Toggling the 'units button' to °F will also switch to the imperial system for the wind speed information.
+              The units are changed only after submitting.
+            </p>
+            <p>GEOLOCATION: Click to show weather information for your current location. The button is hidden on browsers that do not support geolocation.</p>
+
+    </div>
+          <div id=custom-weather><img src="images/loading.gif" width=50 alt="Loading..."><br /><br /><p id=loading>Loading weather information...</p></div>
+          <div class=weather-items>
+            <h4 id=location-data></h4>
+          </div>
+          <hr id=weather-items-hr></hr>
+          <div class=weather-items>
+            <p id=current-condition></p>
+            <p id=humidity></p>
+            <p id=wind></p>
+            <p id=day-low-high></p>
+            <p id=sun></p>
+            <p id=tomorrow></p>
+            <p id=last-update></p>
+          </div>
+        <div class=empty-div></div>
+        </div> <!-- /.col-lg-12 -->
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h1>About</h1>
+          <div id=about-text>
+            <p>This website displays weather information based on input location using the jQuery plugin <a href="http://simpleweatherjs.com">Simple Weather</a>
+              based on the Yahoo Weather API.<br />
+            </p>
+            </p>If you have any questions, suggestions or you want to report a bug, drop me a line at alexandru.dimian{at}gmail.com.<p>
+            <p>© 2015 skamsie.ro</p> 
+          </div>
+          <div class=empty-div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- jQuery -->
+  <script src="js/jquery.js"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="js/bootstrap.js"></script>
+
+  <!-- Scrolling Nav JavaScript -->
+  <script src="js/jquery.easing.min.js"></script>
+  <script src="js/scrolling-nav.js"></script>
+  
+  <!-- Weather plugin -->
+  <script src="js/jquery.simpleWeather.js"></script>
+  <script src="js/weather.js"></script>
+
+</body>
+
+</html>
