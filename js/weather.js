@@ -3,6 +3,38 @@ var LOCATIONS = ['Sibiu', 'Bucharest', 'Berlin', 'Paris', 'Hamburg', 'London', '
                  'San Francisco', 'Oslo', 'Copenhagen', 'Helsinki'];
 var UNITS = 'c';
 var RANDOM_LOCATION = LOCATIONS[Math.floor(Math.random() * LOCATIONS.length)];
+var WOEID = ''
+
+function getLocation (latitude, longitude) {
+  
+  var locationString;
+  var woeidURL = 'https://query.yahooapis.com/v1/public/yql?format=json&q=select city, county, state, country from geo.placefinder where text="'+latitude+','+longitude+'" and gflags="R"';
+  
+  $.ajax({
+    url: encodeURI(woeidURL),
+    async: false,
+    dataType: 'json',
+    success: function (data) {
+      city = data.query.results.Result.city;
+      county = data.query.results.Result.county;
+      state = data.query.results.Result.state;
+      country = data.query.results.Result.country;
+    
+    }
+  });
+  
+  if (county === null) {
+    county = '';
+  }
+  
+  if (state === null) {
+    state = '';
+  }
+  
+  locationString = city + ' ' + county + ' ' + state + ' ' + country;
+  return locationString;
+
+}
 
 function getWeather(locationName, tempUnits, gflags) {
   //get weather information and display it
@@ -66,8 +98,8 @@ if ("geolocation" in navigator) {
 
 $(document).ready(function() {
   //display weather for one of the locations in LOCATIONS
-
-  showLoadingIcon();
+  //getWOEID(44.4174097,26.1269814);
+  showLoadingIcon()
   getWeather(RANDOM_LOCATION, 'c');  
 
 });
@@ -77,7 +109,8 @@ $('#js-geolocation').click(function() {
 
   showLoadingIcon();
   navigator.geolocation.getCurrentPosition(function(position) {
-    getWeather(position.coords.latitude+','+position.coords.longitude, UNITS, 'R'); 
+    locationValues = getLocation(position.coords.latitude, position.coords.longitude);
+    getWeather(getLocation(locationValues), UNITS, 'C'); 
   });
 
 });
@@ -110,3 +143,4 @@ $("#info-button").click(function () {
   $("#info-details").slideToggle("slow");
   $(this).toggleClass('info-pushed-button');
 });
+
