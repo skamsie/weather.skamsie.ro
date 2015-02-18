@@ -107,10 +107,16 @@ $(document).ready(function() {
 $('#js-geolocation').click(function() {
   //load weather using user latitude and longitude coordinates  
 
-  showLoadingIcon();
   navigator.geolocation.getCurrentPosition(function(position) {
+    //if user enables location services
+    showLoadingIcon();
     locationValues = getLocation(position.coords.latitude, position.coords.longitude);
     getWeather(getLocation(locationValues), UNITS, 'C'); 
+  }, function() {
+    //if user disables location services
+    $("#custom-weather").html("<p id=error>Could not get current position. Please enable location services.</p>");
+    $(".weather-items").children().hide();
+    $("#weather-items-hr").hide();
   });
 
 });
