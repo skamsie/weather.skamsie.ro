@@ -5,38 +5,7 @@ var UNITS = 'c';
 var RANDOM_LOCATION = LOCATIONS[Math.floor(Math.random() * LOCATIONS.length)];
 var WOEID = ''
 
-function getLocation (latitude, longitude) {
-  
-  var locationString;
-  var woeidURL = 'https://query.yahooapis.com/v1/public/yql?format=json&q=select city, county, state, country from geo.placefinder where text="'+latitude+','+longitude+'" and gflags="R"';
-  
-  $.ajax({
-    url: encodeURI(woeidURL),
-    async: false,
-    dataType: 'json',
-    success: function (data) {
-      city = data.query.results.Result.city;
-      county = data.query.results.Result.county;
-      state = data.query.results.Result.state;
-      country = data.query.results.Result.country;
-    
-    }
-  });
-  
-  if (county === null) {
-    county = '';
-  }
-  
-  if (state === null) {
-    state = '';
-  }
-  
-  locationString = city + ' ' + county + ' ' + state + ' ' + country;
-  return locationString;
-
-}
-
-function getWeather(locationName, tempUnits, gflags) {
+function getWeather(locationName, tempUnits) {
   //get weather information and display it
 
   var locationData = '';
@@ -47,7 +16,6 @@ function getWeather(locationName, tempUnits, gflags) {
     location: locationName,
     woeid: '',
     unit: tempUnits,
-    controlParam: gflags,
     success: function(weather) {
       html = '<h2><i class="icon-'+weather.code+'"></i> '+weather.temp+'&deg;'+weather.units.temp+'</h2>';
 
@@ -73,7 +41,7 @@ function getWeather(locationName, tempUnits, gflags) {
 
 	  error: function(error) {
 	    showLoadingIcon();
-		  $("#custom-weather").html("<p id=error>" +error.message+ "</p>");
+		  $("#custom-weather").html("<p id=error>" +error.message+  "</p>");
 	  }
 
   });
@@ -110,8 +78,7 @@ $('#js-geolocation').click(function() {
   navigator.geolocation.getCurrentPosition(function(position) {
     //if user enables location services
     showLoadingIcon();
-    locationValues = getLocation(position.coords.latitude, position.coords.longitude);
-    getWeather(getLocation(locationValues), UNITS, 'C'); 
+    getWeather(position.coords.latitude + ',' + position.coords.longitude, UNITS); 
   }, function() {
     //if user disables location services
     $("#custom-weather").html("<p id=error>Could not get current position. Please enable location services.</p>");
@@ -136,6 +103,7 @@ $("#units-button").click(function () {
 
 });
 
+
 $('#submit-location').click(function() {
   //get weather for the location selected by the user
   showLoadingIcon();
@@ -144,9 +112,21 @@ $('#submit-location').click(function() {
 
 });
 
+
+$('#input-location').keypress(function (e) {
+  if (e.which == 13) {
+    showLoadingIcon();
+    var inputLocation = $('#input-location').val();
+    getWeather(inputLocation, UNITS);
+    return false;
+  }
+
+});
+
 $("#info-button").click(function () {
   //toggle info panel
   $("#info-details").slideToggle("slow");
   $(this).toggleClass('info-pushed-button');
+
 });
 
