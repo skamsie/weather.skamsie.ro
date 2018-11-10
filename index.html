@@ -16,8 +16,8 @@
 
   <!-- Custom CSS -->
   <link href="css/style.css" rel="stylesheet">
-  
-  
+
+
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato:400">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -69,11 +69,10 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <h1>Weather for:</h1>
-          
+
           <div class=empty-div-big></div>
           <button id=info-button class=info-pushed-button>i</button>
-          
+
           <div id=input-area>
             <input id=input-location name=location type="text" placeholder="City, ZIP, Region"/>
             <button id=units-button class=units-pushed-button type="button" value='c'>&deg;C</button>
@@ -95,18 +94,25 @@
     </div>
           <div id=custom-weather><img src="images/loading.gif" width=50 alt="Loading..."><br /><br /><p id=loading>Loading weather information...</p></div>
           <div class=weather-items>
-            <h4 id=location-data></h4>
+            <h3 id=location-data></h3>
           </div>
           <hr id=weather-items-hr></hr>
           <div class=weather-items>
             <p id=current-condition></p>
             <p id=humidity></p>
             <p id=wind></p>
-            <p id=day-low-high></p>
             <p id=sun></p>
+            <p id=today></p>
             <p id=tomorrow></p>
+            <p id=day-after-tomorrow></p>
             <p id=last-update></p>
           </div>
+
+          <div class=air-quality-items>
+            <p id=air-quality></p>
+            <p id=aiq-recorded-at></p>
+          </div>
+
         <div class=empty-div></div>
         </div> <!-- /.col-lg-12 -->
       </div> <!-- /.row -->
@@ -124,7 +130,7 @@
               based on the Yahoo Weather API.<br />
             </p>
             </p>If you have any questions, suggestions or you want to report a bug, drop me a line at alexandru.dimian{at}gmail.com.<p>
-            <p>© 2015 skamsie.ro</p> 
+            <p>© 2015 skamsie.ro</p>
           </div>
           <div class=empty-div></div>
         </div>
@@ -141,7 +147,7 @@
   <!-- Scrolling Nav JavaScript -->
   <script src="js/jquery.easing.min.js"></script>
   <script src="js/scrolling-nav.js"></script>
-  
+
   <!-- Weather plugin -->
   <script src="js/jquery.simpleWeather.js"></script>
   <script src="js/weather.js"></script>

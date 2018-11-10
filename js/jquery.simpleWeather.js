@@ -57,6 +57,8 @@
             weather.currently = result.item.condition.text;
             weather.high = result.item.forecast[0].high;
             weather.low = result.item.forecast[0].low;
+            weather.lat = result.item.lat
+            weather.long = result.item.long
             weather.text = result.item.forecast[0].text;
             weather.humidity = result.atmosphere.humidity;
             weather.pressure = result.atmosphere.pressure;
