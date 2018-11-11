@@ -26,7 +26,7 @@
 @media(max-width:767px) {
 
   #input-location {
-    max-width: 120px; 
+    max-width: 120px;
   }
 
 }
@@ -105,7 +105,7 @@ i {
   margin-bottom: 0;
   display: none;
 }
-  
+
 #about-text a {
   color: #D0C9D9;
 }
@@ -277,13 +277,17 @@ i {
   font-size: 15px;
 }
 
+.air-quality-items,
 .weather-items {
-  padding-top: 20px;
   max-width: 500px;
   margin: 0 auto;
   color: white;
   text-align: left;
   font-size: 18px;
+}
+
+.weather-items {
+  padding-top: 20px;
 }
 
 .weather-items h4 {
@@ -318,4 +322,8 @@ i {
 
 .info-pushed-button {
   background-color: #D2D2D2 !important;
+}
+
+.title {
+  color: #BEBEBE;
 }
