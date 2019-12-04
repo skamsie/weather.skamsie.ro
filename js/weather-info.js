@@ -6,7 +6,6 @@ var LOCATIONS = [
 ];
 var UNITS = "c";
 var RANDOM_LOCATION = LOCATIONS[Math.floor(Math.random() * LOCATIONS.length)];
-var WOEID = "";
 
 const DEG = "&deg;";
 const TODAY = "<span class=title>Today: </span>";
@@ -16,6 +15,7 @@ const CURRENT = "<span class=title>Current Condition: </span>";
 const LAST_UPDATE = "<span class=title>Weather Last Updated: </span>";
 const ASTRONOMY = "<span class=title>Astronomy: </span>";
 const AIR_QUALITY_URL = "https://api.waqi.info/feed/geo:"
+
 
 function airQualityData(aiq) {
   if (0 <= aiq && aiq <= 50) {
@@ -57,31 +57,43 @@ function getAirQuality(latitude, longitude) {
   });
 }
 
-function getWeather(locationName, tempUnits) {
-  //get weather information and display it
+function geocodeAndGetWeather(place, tempUnits) {
+  $.openCageGeocode(
+    {
+      place: place,
+      apikey: '6ad9e7ffedd3433685452d40d38f19bb',
+      success: function(geoData) {
+        getWeather(geoData, tempUnits);
+      },
+      error: function(error) {
+        showLoadingIcon();
+        $("#custom-weather").html("<p id=error>" + error +  "</p>");
+      }
+  });
+}
 
-  var locationData = "";
-  var separator = "";
+function getWeather(geoData, tempUnits) {
+  //get weather information and display it
 
   $.simplerWeather(
     {
-      location: '53.551086, 9.993682',
+      location: geoData.latitude + ", " + geoData.longitude, tempUnits,
       apikey: 'e767bd753e5d345eae07bbc9d9e8ee92',
       units: tempUnits,
       success: function(weather) {
-        html = "<h2><i class='icon-" + weather.icon + "'></i> " +
-          weather.temp + DEG + weather.unit + "</h2>";
+        var html = "<h2><i class='icon-" + weather.icon + "'></i> " +
+          weather.temp + DEG + weather.unit.toUpperCase() + "</h2>";
 
         getAirQuality(weather.latitude, weather.longitude);
 
         $(".weather-items").children().show();
         $("#custom-weather").html(html);
-        $("#location-data").html(locationData);
+        $("#location-data").html(geoData.placeName);
         $("#weather-items-hr").show();
         $("#current-condition")
           .html(
             CURRENT + weather.currently + " " + weather.temp +
-            DEG + weather.unit
+            DEG + weather.unit.toUpperCase()
           );
         $("#humidity").html(HUMIDITY + weather.humidity + " %");
         $("#wind").html(WIND + weather.windSpeed);
@@ -90,6 +102,13 @@ function getWeather(locationName, tempUnits) {
             TODAY + weather.forecast[0].summary +
             " <span class=low>&darr;</span> " + weather.forecast[0].low + DEG +
             " <span class=high>&uarr;</span> " + weather.forecast[0].high + DEG
+          );
+        $("#tomorrow")
+          .html(
+            "<span class=title>" + weather.forecast[1].date + ": </span>" +
+            weather.forecast[1].summary + " <span class=low>&darr;</span> " +
+            weather.forecast[1].low + DEG + " <span class=high>&uarr;</span> " +
+            weather.forecast[1].high + DEG
           );
       },
 
@@ -122,10 +141,8 @@ if ("geolocation" in navigator) {
 
 $(document).ready(function() {
   //display weather for one of the locations in LOCATIONS
-  //getWOEID(44.4174097,26.1269814);
   showLoadingIcon()
-  getWeather(RANDOM_LOCATION, "c");
-
+  geocodeAndGetWeather(RANDOM_LOCATION, "c");
 });
 
 $("#js-geolocation").click(function() {
@@ -134,7 +151,7 @@ $("#js-geolocation").click(function() {
   navigator.geolocation.getCurrentPosition(function(position) {
     //if user enables location services
     showLoadingIcon();
-    getWeather(
+    geocodeAndGetWeather(
       position.coords.latitude + "," +
       position.coords.longitude, UNITS
     );
@@ -168,17 +185,16 @@ $("#units-button").click(function () {
 $("#submit-location").click(function() {
   //get weather for the location selected by the user
   showLoadingIcon();
-  var inputLocation = $("#input-location").val();
-  getWeather(inputLocation, UNITS);
-
+  var inputLocation = $("#input-location").val() || "";
+  geocodeAndGetWeather(inputLocation, UNITS);
 });
 
 
 $('#input-location').keypress(function (e) {
   if (e.which == 13) {
     showLoadingIcon();
-    var inputLocation = $('#input-location').val();
-    getWeather(inputLocation, UNITS);
+    var inputLocation = $('#input-location').val() || "";
+    geocodeAndGetWeather(inputLocation, UNITS);
     return false;
   }
 });
