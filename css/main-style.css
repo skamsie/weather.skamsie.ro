@@ -210,6 +210,11 @@ i {
   font-size: 16px;
 }
 
+.icon-clear-day:before { content: "1"; }
+.icon-clear-night:before { content: "6"; }
+.icon-rain:before { content: "M"; }
+.icon-cloudy:before { content: "3"; }
+
 .icon-0:before { content: ":"; }
 .icon-1:before { content: "p"; }
 .icon-2:before { content: "S"; }
@@ -242,15 +247,12 @@ i {
 .icon-29:before { content: "a"; }
 .icon-30:before { content: "A"; }
 .icon-31:before { content: "6"; }
-.icon-32:before { content: "1"; }
-.icon-33:before { content: "6"; }
 .icon-34:before { content: "1"; }
 .icon-35:before { content: "W"; }
 .icon-36:before { content: "1"; }
 .icon-37:before { content: "S"; }
 .icon-38:before { content: "S"; }
 .icon-39:before { content: "S"; }
-.icon-40:before { content: "M"; }
 .icon-41:before { content: "W"; }
 .icon-42:before { content: "I"; }
 .icon-43:before { content: "W"; }

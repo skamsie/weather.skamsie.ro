@@ -11,7 +11,7 @@ var WOEID = "";
 const DEG = "&deg;";
 const TODAY = "<span class=title>Today: </span>";
 const HUMIDITY = "<span class=title>Humidity: </span>";
-const WIND = "<span class=title><span class=small-icon>,</span> </span>"
+const WIND = "<span class=title>Wind: </span>"
 const CURRENT = "<span class=title>Current Condition: </span>";
 const LAST_UPDATE = "<span class=title>Weather Last Updated: </span>";
 const ASTRONOMY = "<span class=title>Astronomy: </span>";
@@ -63,19 +63,16 @@ function getWeather(locationName, tempUnits) {
   var locationData = "";
   var separator = "";
 
-  $.simpleWeather(
+  $.simplerWeather(
     {
-      location: locationName,
-      woeid: '',
-      unit: tempUnits,
+      location: '53.551086, 9.993682',
+      apikey: 'e767bd753e5d345eae07bbc9d9e8ee92',
+      units: tempUnits,
       success: function(weather) {
-        html = "<h2><i class='icon-" + weather.code + "'></i> " +
-          weather.temp + DEG + weather.units.temp + "</h2>";
-        if (weather.region != '') { separator = ', '; };
-        locationData = "<span id=weather-city>" + weather.city +
-          "</span>" + separator+weather.region + ", " + weather.country;
+        html = "<h2><i class='icon-" + weather.icon + "'></i> " +
+          weather.temp + DEG + weather.unit + "</h2>";
 
-        getAirQuality(weather.lat, weather.long);
+        getAirQuality(weather.latitude, weather.longitude);
 
         $(".weather-items").children().show();
         $("#custom-weather").html(html);
@@ -84,40 +81,16 @@ function getWeather(locationName, tempUnits) {
         $("#current-condition")
           .html(
             CURRENT + weather.currently + " " + weather.temp +
-            DEG + weather.units.temp
+            DEG + weather.unit
           );
         $("#humidity").html(HUMIDITY + weather.humidity + " %");
-        $("#wind")
-          .html(
-            WIND + weather.wind.direction + " " +
-            weather.wind.speed + " " + weather.units.speed
-          );
+        $("#wind").html(WIND + weather.windSpeed);
         $("#today")
           .html(
-            TODAY + weather.forecast[0].text +
+            TODAY + weather.forecast[0].summary +
             " <span class=low>&darr;</span> " + weather.forecast[0].low + DEG +
             " <span class=high>&uarr;</span> " + weather.forecast[0].high + DEG
           );
-        $("#tomorrow")
-          .html(
-            "<span class=title>" + weather.forecast[1].day + ": </span>" +
-            weather.forecast[1].text + " <span class=low>&darr;</span> " +
-            weather.forecast[1].low + DEG + " <span class=high>&uarr;</span> " +
-            weather.forecast[1].high + DEG
-          );
-        $("#day-after-tomorrow")
-          .html(
-            "<span class=title>" + weather.forecast[2].day + ": </span>" +
-            weather.forecast[2].text + " <span class=low>&darr;</span> " +
-            weather.forecast[2].low + DEG + " <span class=high>&uarr;</span> " +
-            weather.forecast[2].high + DEG
-          );
-        $("#sun")
-          .html(
-            ASTRONOMY + "<span class=small-icon>7</span> " + weather.sunrise +
-            " <span class=small-icon>8</span> " + weather.sunset
-          );
-        $("#last-update").html(LAST_UPDATE + weather.updated);
       },
 
     error: function(error) {
