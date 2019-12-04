@@ -1,20 +1,20 @@
 ( function( $ ) {
-  'use strict';
+  "use strict";
 
   $.extend( {
-    openCageGeocode: function( options ) {
+    openCageGeocode: function(options) {
       options = $.extend( {
-        place: '',
-        apikey: '',
-        success: function( geoData ) {},
-        error: function( message ) {}
+        place: "",
+        apikey: "",
+        success: function(_geoData) {},
+        error: function(_message) {}
       }, options );
 
-      let errorMsg = "Could not geocode this location."
+      let errorMsg = "Could not geocode this location.";
 
       function geocodeURL() {
-        var baseURL = "https://api.opencagedata.com/geocode/v1/json?q=";
-        var apiKey = "&key=" + options.apikey;
+        let baseURL = "https://api.opencagedata.com/geocode/v1/json?q=";
+        let apiKey = "&key=" + options.apikey;
 
         return encodeURI(baseURL + options.place + apiKey);
       }
@@ -24,8 +24,8 @@
         function( data ) {
           if( data !== null && data.results.length ) {
             console.log(data)
-            var geoData = {};
-            var firstResult = data.results[0];
+            let geoData = {};
+            let firstResult = data.results[0];
 
             geoData.placeName = firstResult.formatted
             geoData.latitude = firstResult.geometry.lat

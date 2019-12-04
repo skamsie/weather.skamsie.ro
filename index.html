@@ -17,9 +17,6 @@
   <!-- Custom CSS -->
   <link href="css/main-style.css" rel="stylesheet">
 
-
-  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato:400">
-
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -68,19 +65,19 @@
   <section id="intro" class="select-location">
     <div class="container">
       <div class="row">
-        <div class="col-lg-12">
-
-          <div class=empty-div-big></div>
-          <button id=info-button class=info-pushed-button>i</button>
-
-          <div id=input-area>
-            <input id=input-location name=location type="text" placeholder="City, ZIP, Region"/>
-            <button id=units-button class=units-pushed-button type="button" value='c'>&deg;C</button>
-            <button id="js-geolocation" type="button"><img src="images/location-icon.png"></button>
-            <button id=submit-location type="button">submit</button>
+        <div id="weather-1" class="col-xs-12">
+          <div class=input-area>
+            <input name=weather-1 class=input-location type="text" placeholder="City, ZIP, Region"/>
+            <button name=weather-1 class=units-button type="button"></button>
+            <button name="weather-1" class="js-geolocation" type="button">&nbsp;</button>
+            <button name="weather-1" class=submit-location type="button">submit</button>
+            <div class=small-buttons>
+              <button id=info-button>&nbsp;</button>
+              <button id=add-weather-button class=add-weather>&nbsp;</button>
+            </div>
           </div>
-          <div class=empty-div></div>
-          <div id="info-details">
+
+          <div id=info-details>
             <p>INFO</p>
             <p>INPUT: Type in the input box the location for which you want to get weather information. For big cities
               providing only the city name usually suffices, but for less known locations it is better to provide also the zip code,
@@ -90,31 +87,43 @@
               The units are changed only after submitting.
             </p>
             <p>GEOLOCATION: Click to show weather information for your current location. The button is hidden on browsers that do not support geolocation.</p>
-
-    </div>
-          <div id=custom-weather><img src="images/loading.gif" width=50 alt="Loading..."><br /><br /><p id=loading>Loading weather information...</p></div>
-          <div class=weather-items>
-            <h3 id=location-data></h3>
-          </div>
-          <hr id=weather-items-hr></hr>
-          <div class=weather-items>
-            <p id=current-condition></p>
-            <p id=humidity></p>
-            <p id=wind></p>
-            <p id=sun></p>
-            <p id=today></p>
-            <p id=tomorrow></p>
-            <p id=day-after-tomorrow></p>
-            <p id=last-update></p>
           </div>
 
+          <h1 class=weather-header></h1>
+          <div class=weather-items>
+            <h3 class=location-data></h3>
+            <div class=coordinates></div>
+            <hr class=weather-items-hr></hr>
+            <div class=summary-items></div>
+          </div>
+          <br />
           <div class=air-quality-items>
-            <p id=air-quality></p>
-            <p id=aiq-recorded-at></p>
+            <p class=air-quality></p>
+            <p class=aiq-recorded-at></p>
+          </div>
+        </div> <!-- /#weather-1 -->
+
+        <div id="weather-2" class="col-xs-6">
+          <div class=input-area>
+            <input  name=weather-2 class=input-location type="text" placeholder="City, ZIP, Region"/>
+            <button name=weather-2 class=units-button type="button" value='c'>&deg;C</button>
+            <button name="weather-2" class="js-geolocation" type="button">&nbsp;</button>
+            <button name=weather-2 class=submit-location type="button">submit</button>
           </div>
 
-        <div class=empty-div></div>
-        </div> <!-- /.col-lg-12 -->
+          <h1 class=weather-header></h1>
+          <div class=weather-items>
+            <h3 class=location-data></h3>
+            <div class=coordinates></div>
+            <hr class=weather-items-hr></hr>
+            <div class=summary-items></div>
+          </div>
+          <br />
+          <div class=air-quality-items>
+            <p class=air-quality></p>
+            <p class=aiq-recorded-at></p>
+          </div>
+        </div> <!-- /#weather-2 -->
       </div> <!-- /.row -->
     </div> <!-- /.container -->
   </section>
@@ -123,16 +132,33 @@
   <section id="about" class="about-section">
     <div class="container">
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-xs-12">
           <h1>About</h1>
           <div id=about-text>
-            <p>This website displays weather information based on input location using the jQuery plugin <a href="http://simpleweatherjs.com">Simple Weather</a>
-              based on the Yahoo Weather API.<br />
+            <p>
+              This website displays weather and air quality information
+              based on input location. When the page is first loaded, or on subsequent reloads, a random location
+              is chosen.
             </p>
-            </p>If you have any questions, suggestions or you want to report a bug, drop me a line at alexandru.dimian{at}gmail.com.<p>
+
+            <p>
+              <strong>Attribution</strong><br />
+              For geocoding the location <a href="https://opencagedata.com">Open Cage Data</a><br />
+              For weather information <a href="https://darksky.net">Dark Sky</a><br />
+              For air quality information <a href="http://aqicn.org/">aqicn.com</a><br />
+              Weather Icons <a href="http://fonts.artill.de/collection/artill-weather-icons">Artill Weather Icons</a><br />
+            </p>
+
+            <p>
+              <strong>Last Update</strong> December 2019
+            </p>
+
+            <p>
+              <strong>Contact</strong> <a href="https://github.com/skamsie">github.com/skamsie</a>
+            </p>
+
             <p>© 2015 skamsie.ro</p>
           </div>
-          <div class=empty-div></div>
         </div>
       </div>
     </div>
