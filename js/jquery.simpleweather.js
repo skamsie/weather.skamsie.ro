@@ -33,11 +33,11 @@
       }
 
       function getWeatherURL( authmethod ) {
-        let geoLocation = options.location.split( ',' );
+        var geoLocation = options.location.split( ',' );
         var lat = geoLocation[ 0 ];
         var lon = geoLocation[ 1 ];
         if( authmethod === "apikey" && options.apikey !== '' ) {
-          let apiKey = encodeURIComponent( options.apikey );
+          var apiKey = encodeURIComponent( options.apikey );
           return "https://api.darksky.net/forecast/" + apiKey + "/" +
             lat + "," + lon + "/?units=" + units +
             "&exclude=minutely,hourly,alerts,flags";

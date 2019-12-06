@@ -44,7 +44,11 @@ function paragraph(element) {
 }
 
 function concat() {
-  return Object.values(arguments).reduce((a, b) => a + b, "")
+  concatenated = "";
+  for (var i = 0; i < arguments.length; i++) {
+    concatenated += arguments[i];
+  }
+  return concatenated;
 }
 
 function getUnits(weatherId) {
@@ -82,7 +86,7 @@ function showWeather(weather, placeName, weatherId) {
 
   var currentSummary = paragraph(concat(
     title("Current Condition"), weather.currently, ", "
-   , weather.temp, " ", DEG, weather.unit.toUpperCase()));
+    , weather.temp, " ", DEG, weather.unit.toUpperCase()));
 
   var humidity = paragraph(concat(
     title("Humidity"), Math.floor(weather.humidity * 100), " %"));
@@ -92,14 +96,14 @@ function showWeather(weather, placeName, weatherId) {
 
   var astronomy = paragraph(
     concat(title("Astronomy"), "<span class=small-icon>7</span> ",
-    weather.sunrise, " <span class=small-icon>8</span> ",
-    weather.sunset)
+      weather.sunrise, " <span class=small-icon>8</span> ",
+      weather.sunset)
   )
 
   var today = paragraph(
     concat(title("Today"), weather.forecast[0].summary,
-    " <span class=low>&darr;</span> ", weather.forecast[0].low, DEG,
-    " <span class=high>&uarr;</span> ", weather.forecast[0].high, DEG))
+      " <span class=low>&darr;</span> ", weather.forecast[0].low, DEG,
+      " <span class=high>&uarr;</span> ", weather.forecast[0].high, DEG))
 
   var forecast = "";
   for(var i = 1; i < 4; i++) {
@@ -158,7 +162,7 @@ function geocodeAndGetWeather(place, units, weatherId) {
       error: function(error) {
         showError(weatherId, error);
       }
-  });
+    });
 }
 
 //get weather information and display it
@@ -175,7 +179,7 @@ function getWeather(geoData, units, weatherId) {
       error: function(error) {
         showError(weatherId, error.message);
       }
-  });
+    });
 }
 
 //hide weather elements and show loading icon

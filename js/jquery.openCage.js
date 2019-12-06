@@ -10,11 +10,11 @@
         error: function(_message) {}
       }, options );
 
-      let errorMsg = "Could not geocode this location.";
+      var errorMsg = "Could not geocode this location.";
 
       function geocodeURL() {
-        let baseURL = "https://api.opencagedata.com/geocode/v1/json?q=";
-        let apiKey = "&key=" + options.apikey;
+        var baseURL = "https://api.opencagedata.com/geocode/v1/json?q=";
+        var apiKey = "&key=" + options.apikey;
 
         return encodeURI(baseURL + options.place + apiKey);
       }
@@ -24,8 +24,8 @@
         function( data ) {
           if( data !== null && data.results.length ) {
             console.log(data)
-            let geoData = {};
-            let firstResult = data.results[0];
+            var geoData = {};
+            var firstResult = data.results[0];
 
             geoData.placeName = firstResult.formatted
             geoData.latitude = firstResult.geometry.lat
