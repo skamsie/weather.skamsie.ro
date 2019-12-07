@@ -6,8 +6,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Weather information">
-  <meta name="author" content="www.skamsie.ro">
+  <meta name="description" content="Weather information for up to two locations at once">
+  <meta name="author" content="https://weather.skamsie.ro">
 
   <title>Weather</title>
 
@@ -15,7 +15,7 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom CSS -->
-  <link href="css/weather-style.css" rel="stylesheet">
+  <link href="css/custom-style.css" rel="stylesheet">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -78,15 +78,29 @@
           </div>
 
           <div id=info-details>
-            <p>INFO</p>
-            <p>INPUT: Type in the input box the location for which you want to get weather information. For big cities
-              providing only the city name usually suffices, but for less known locations it is better to provide also the zip code,
-              country name, or country code.
+            <strong>INFO</strong>
+            <hr />
+            <p><strong>INPUT</strong><br /> Type in the input box the location for which you want to get weather
+              information. For big cities providing only the city name usually suffices, but for less known
+              locations it is better to provide also the county, region, zip code or country.
             </p>
-            <p>UNITS: Toggling the 'units button' to °F will also switch to the imperial system for the wind speed information.
-              The units are changed only after submitting.
+            <p><strong>GEOLOCATION</strong><br /> Click <img src="images/geolocation.png" height="16" width="16">
+              to show weather information for your current location. The button is hidden on browsers that do
+              not support geolocation.
             </p>
-            <p>GEOLOCATION: Click to show weather information for your current location. The button is hidden on browsers that do not support geolocation.</p>
+            <p><strong>UNITS</strong><br />Toggling the units button (<strong>°C</strong> / <strong>°F</strong>)
+              will also switch between the international system and the imperial system for the temperature
+              and wind speed information. The units are changed only after submitting.
+            </p>
+            <p><strong>AIR QUALITY</strong><br />
+              Air quality index is always displayed. The data is taken from the closest station to the searched
+              location, which can be at a considerable distance. You can check the 'Air quality location' field and
+              decide on its relevance.
+            </p>
+            <p><strong>COMPARE</strong><br />
+              Using the button labeled <strong>+</strong> a second weather search area can be added to compare weather
+              from two locations simultaneously. This button is hidden on small mobile devices.
+            </p>
           </div>
 
           <h1 class=weather-header></h1>
