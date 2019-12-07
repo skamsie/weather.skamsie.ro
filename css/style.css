@@ -82,8 +82,12 @@ body, html {
 }
 
 input:focus,
-button:focus {
+button:focus,
+a:focus {
   outline: none;
+}
+a:active, a:visited {
+  text-decoration:none;
 }
 
 h1 {
@@ -297,7 +301,6 @@ hr {
 }
 
 .coordinates a:hover {
-  text-decoration: underline;
   font-weight: bold;
 }
 
