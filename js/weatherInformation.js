@@ -125,7 +125,7 @@ function showWeather(weather, geoData, weatherId) {
   $(weatherId.concat(" .location-data")).html(geoData.placeName);
   $(weatherId.concat(".weather-items-hr")).show();
   $(weatherId.concat(" .coordinates")).html(concat(
-    "<a href='", geoData.placeURL, "'>", weather.latitude,
+    "<a href='", geoData.placeURL, "' target='_blank'>", weather.latitude,
     ", ", weather.longitude, "</a>"
   ));
 }
