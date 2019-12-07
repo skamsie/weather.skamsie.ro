@@ -76,7 +76,6 @@
       $.getJSON(
         encodeURI( getWeatherURL( options.authmethod ) + "&callback=?" ),
         function( data ) {
-          console.log(data);
           if( data !== null ) {
             var result = data,
               weather = {};

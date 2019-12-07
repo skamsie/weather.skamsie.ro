@@ -15,7 +15,7 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom CSS -->
-  <link href="css/custom-style.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -80,9 +80,10 @@
           <div id=info-details>
             <strong>INFO</strong>
             <hr />
-            <p><strong>INPUT</strong><br /> Type in the input box the location for which you want to get weather
-              information. For big cities providing only the city name usually suffices, but for less known
-              locations it is better to provide also the county, region, zip code or country.
+            <p><strong>SEARCH INPUT</strong><br />
+              For big cities or locations with a unique name, providing only the name usually suffices.
+              For less known places, or places with the same name as a county, it is better to provide also
+              the county, a zip code, region and / or country.
             </p>
             <p><strong>GEOLOCATION</strong><br /> Click <img src="images/geolocation.png" height="16" width="16">
               to show weather information for your current location. The button is hidden on browsers that do
@@ -150,9 +151,8 @@
           <h1>About</h1>
           <div id=about-text>
             <p>
-              This website displays weather and air quality information
-              based on input location. When the page is first loaded, or on subsequent reloads, a random location
-              is chosen.
+              This website displays weather and air quality information for up to
+              two locations at once.
             </p>
 
             <p>
@@ -189,9 +189,9 @@
   <script src="js/scrolling-nav.js"></script>
 
   <!-- Weather plugin -->
-  <script src="js/jquery.simpleweather.js"></script>
-  <script src="js/jquery.openCage.js"></script>
-  <script src="js/weatherInfo.js"></script>
+  <script src="js/jquery.darkSkyInterface.js"></script>
+  <script src="js/jquery.openCageInterface.js"></script>
+  <script src="js/weatherData.js"></script>
 
 </body>
 

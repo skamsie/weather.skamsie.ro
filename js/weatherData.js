@@ -1,3 +1,4 @@
+var DEFAULT_UNITS = "c"
 var LOCATIONS = [
   "Sibiu", "Bucharest", "Berlin", "Paris", "Hamburg", "London", "Amsterdam",
   "New York", "Tokyo", "Beijing", "Sydney", "Johannesburg", "Cairo", "Tehran",
@@ -6,15 +7,11 @@ var LOCATIONS = [
   "Kodinsk, Russia", "Osaka, Japan", "Las Palmas, Spain", "Tijuana, Mexico"
 ];
 
-var DEFAULT_UNITS = "c"
-var RANDOM_LOCATION = LOCATIONS[Math.floor(Math.random() * LOCATIONS.length)];
-
 const DEG = "&deg;";
-
-const DARKSKY_A_K = "e3aeb4ac08abf531bf8a35f20224f683";
-const WAQI_A_K = "533b03f58a2c03b0e9d4de287cf858ed5279ed53";
-const OPENCAGE_A_K ="6ad9e7ffedd3433685452d40d38f19bb";
 const AIR_QUALITY_URL = "https://api.waqi.info/feed/geo:"
+const DARKSKY_A_K = "e3aeb4ac08abf531bf8a35f20224f683";
+const OPENCAGE_A_K ="6ad9e7ffedd3433685452d40d38f19bb";
+const WAQI_A_K = "533b03f58a2c03b0e9d4de287cf858ed5279ed53";
 
 function airQualityData(aiq) {
   if (0 <= aiq && aiq <= 50) {
@@ -33,6 +30,10 @@ function airQualityData(aiq) {
   } else {
     return aiq
   }
+}
+
+function randomLocation() {
+  return LOCATIONS[Math.floor(Math.random() * LOCATIONS.length)];
 }
 
 function title(textTile) {
@@ -77,7 +78,7 @@ function icon(iconName) {
   }
 }
 
-function showWeather(weather, placeName, weatherId) {
+function showWeather(weather, geoData, weatherId) {
   getAirQuality(weather.latitude, weather.longitude, weatherId);
 
   $(weatherId.concat(" .weather-header")).html(concat(
@@ -120,26 +121,26 @@ function showWeather(weather, placeName, weatherId) {
 
   $(weatherId.concat(" .weather-items")).children().show();
   $(weatherId.concat(" .summary-items")).html(concat(
-    currentSummary, humidity, wind, today, astronomy, forecast));
-
-  $(weatherId.concat(" .location-data")).html(placeName);
+    currentSummary, humidity, wind, astronomy, today, forecast));
+  $(weatherId.concat(" .location-data")).html(geoData.placeName);
   $(weatherId.concat(".weather-items-hr")).show();
-
-  $(weatherId.concat(" .coordinates"))
-    .html(weather.latitude + ", " + weather.longitude );
+  $(weatherId.concat(" .coordinates")).html(concat(
+    "<a href='", geoData.placeURL, "'>", weather.latitude,
+    ", ", weather.longitude, "</a>"
+  ));
 }
 
 function showAirQuality(airQuality, weatherId) {
   $(weatherId.concat(" .air-quality-items")).children().show();
   $(weatherId.concat(" .air-quality"))
-    .html(title("Air Quality") + airQualityData(airQuality.data.aqi));
+    .html(title("Air Quality").concat(airQualityData(airQuality.data.aqi)));
   $(weatherId.concat(" .aiq-recorded-at"))
-    .html(title("Air Quality Location") + airQuality.data.city.name);
+    .html(title("Air Quality Location").concat(airQuality.data.city.name));
 }
 
 function getAirQuality(latitude, longitude, weatherId) {
-  var air_quality_uri = AIR_QUALITY_URL + latitude + ";" + longitude +
-    "/?token=" + WAQI_A_K;
+  var air_quality_uri = concat(
+    AIR_QUALITY_URL, latitude, ";", longitude, "/?token=", WAQI_A_K);
 
   $.ajax({
     url: air_quality_uri,
@@ -173,7 +174,7 @@ function getWeather(geoData, units, weatherId) {
       apikey: DARKSKY_A_K,
       units: units,
       success: function(weather) {
-        showWeather(weather, geoData.placeName, weatherId)
+        showWeather(weather, geoData, weatherId)
       },
 
       error: function(error) {
@@ -193,20 +194,10 @@ function showLoadingIcon(weatherId) {
     );
 }
 
-if ("geolocation" in navigator) {
-  $("#js-geolocation").show();
-
-} else {
-  $("#js-geolocation").hide();
-}
-
-//$(document).ready(function() {
-//  //display weather for one of the locations in LOCATIONS
-//  showLoadingIcon("#weather-1")
-//  geocodeAndGetWeather(RANDOM_LOCATION, "c", "#weather-1");
-//});
-
 $(document).ready(function() {
+  // hide geolocation button if browser does not support it
+  if (!("geolocation" in navigator)) { $(".js-geolocation").hide() };
+
   $(".units-button")
     .html("&deg;" + DEFAULT_UNITS.toUpperCase())
     .val(DEFAULT_UNITS)
