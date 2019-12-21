@@ -101,27 +101,25 @@ function showWeather(weather, geoData, weatherId) {
       weather.sunset)
   )
 
-  var today = paragraph(
-    concat(title("Today"), weather.forecast[0].summary,
-      " <span class=low>&darr;</span> ", weather.forecast[0].low, DEG,
-      " <span class=high>&uarr;</span> ", weather.forecast[0].high, DEG))
-
   var forecast = "";
-  for(var i = 1; i < 4; i++) {
-    item = weather.forecast[i]
+
+  for(var i = 0; i < 4; i++) {
+    var item = weather.forecast[i]
+    var weekday = (i == 0) ? "Today" : item.weekday;
+
     forecast +=
       paragraph(
         concat(
-          title(item.weekday), item.summary,
-          " <span class=low>&darr;</span> ", item.low, DEG,
-          " <span class=high>&uarr;</span> ", item.high, DEG
+          title(weekday), "<span class=small-icon>", icon(item.icon),
+          "</span> ", item.summary, " <span class=low>&darr;</span> ",
+          item.low, DEG, " <span class=high>&uarr;</span> ", item.high, DEG
         )
       )
   }
 
   $(weatherId.concat(" .weather-items")).children().show();
   $(weatherId.concat(" .summary-items")).html(concat(
-    currentSummary, humidity, wind, astronomy, today, forecast));
+    currentSummary, humidity, wind, astronomy, forecast));
   $(weatherId.concat(" .location-data")).html(geoData.placeName);
   $(weatherId.concat(".weather-items-hr")).show();
   $(weatherId.concat(" .coordinates")).html(concat(
